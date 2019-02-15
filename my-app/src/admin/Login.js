@@ -1,23 +1,19 @@
 import React,{Component} from 'react'
 import axios from 'axios'//发送ajax 请求
-import { browserHistory } from 'react-router'
 
 class Login extends Component{
-
     constructor(props){
         super(props)
         this.state = {
-            inputname: '',
+            inputName: '',
             inputPassword: '',
             power_id: '管理员',
         }
-        this.handleInputnameChange = this.handleInputnameChange.bind(this)
-        this.handleInputPasswordChange = this.handleInputPasswordChange.bind(this)
-        this.handleRadioChange = this.handleRadioChange.bind(this)
-        this.handleLogin = this.handleLogin.bind(this)
-
+        // this.handleInputNameChange = this.handleInputNameChange.bind(this)
+        // this.handleInputPasswordChange = this.handleInputPasswordChange.bind(this)
+        // this.handleRadioChange = this.handleRadioChange.bind(this)
+        // this.handleLogin = this.handleLogin.bind(this)
     }
-
 
     render(){
         return (
@@ -35,7 +31,7 @@ class Login extends Component{
                             // action="/#/a"
                             className="input_box"
                             method="post"
-                            onSubmit={this.handleLogin}
+                            // onSubmit={this.handleLogin}
 
                         >
                             <div className="input_item">
@@ -48,10 +44,9 @@ class Login extends Component{
                                     type="text"
                                     placeholder="账号"
                                     name="name"
-                                    onChange={this.handleInputnameChange}
+                                    onChange={this.handleInputNameChange}
                                 />
                             </div>
-
                             <div className="input_item">
                                 <div className="the_icon">
                                     <img src="img/password.jpg" alt="user"/>
@@ -62,11 +57,12 @@ class Login extends Component{
                                     placeholder="密码"
                                     name="password"
                                     onChange={this.handleInputPasswordChange}
-
                                 />
                             </div>
-
-                            <div className="input_item radio" onChange={this.handleRadioChange}>
+                            <div
+                                className="input_item radio"
+                                onChange={this.handleRadioChange}
+                            >
                                 <div className="radio_item">
                                     <label>
                                         <input
@@ -99,28 +95,22 @@ class Login extends Component{
                                     </label>
                                 </div>
                             </div>
-
                             <div className="attention">
                                 {/*<!--message-->*/}
                             </div>
-
                             <div className="btn_item">
                                 <button
                                     id="my_submit"
-                                    type="submit"
+                                    type="button"
                                     className="button login_in"
-                                    // onClick={this.handleLogin}
+                                    onClick={this.handleLogin}
                                 >
                                     登录
                                 </button>
                                 <button
                                     type="button"
                                     className="button"
-                                    onClick={
-                                        function () {
-                                            window.location.href='../../'
-                                        }
-                                    }
+                                    onClick={this.handleAbandon}
                                 >
                                     取消
                                 </button>
@@ -132,53 +122,50 @@ class Login extends Component{
         )
     }
 
-    handleInputnameChange(e){
-        // console.log(e.target)
+    handleInputNameChange=(e)=>{
         const value = e.target.value;
         this.setState(()=>({
-            inputname: value
+            inputName: value
         }))
     }
-    handleInputPasswordChange(e){
-        // console.log(e.target)
-        const value = e.target.value;
-        this.setState(()=>({
-            inputPassword: value
-        }))
-    }
-    handleInputRadioChange(e){
-        // console.log(e.target)
+    handleInputPasswordChange=(e)=>{
         const value = e.target.value;
         this.setState(()=>({
             inputPassword: value
         }))
     }
-    handleRadioChange(e){
-        // console.log(e.target.value)
+    handleRadioChange=(e)=>{
         const value = e.target.value;
         this.setState(()=>({
             power_id: value
         }))
     }
 
-    handleLogin(e){
+    handleLogin=(e)=>{
         e.preventDefault();
 
-        console.log("oklogin")
-        axios.post('/my_test',{a:100})
-        .then((res2222)=>{
-            // var data = JSON.parse(res2222.data);
-            // console.log(data)
-            console.log(res2222)
+        const values = this.state;
+        console.log(values, '提交数据');
 
+        axios.post('/my_test',values)
+        .then((res)=>{
+            console.log(res)
+            if (res.status === 200){
+                window.location.hash = "#/home"
+            }
+            else {
+                console.log("error")
+            }
         })
         .catch(function (error) {
             console.log(error);
+            alert("密码错误")
         });
-        const path = '/#/home';
-        browserHistory.push(path);
-
     }
+    handleAbandon=()=>{
+        window.location.href='../../'
+    }
+
 }
 
 export default Login

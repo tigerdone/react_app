@@ -1,55 +1,61 @@
 import React,{Component,Fragment} from 'react'
 import {Link} from 'react-router'
-import axios from 'axios'//发送ajax 请求
+import Input from "./input/Input";
 
 
-const API = 'http://127.0.0.1/my_test';
-class index extends Component{
+
+
+class Home extends Component{
     constructor(props) {
         super(props);
         //当组件的state或者Props发生改变的时候，render函数就会重新执行
         this.state = {
-            inputValue: 'hello world',
             list: []
         }
-
     }
     render(){
         return (
             <Fragment>
-                <div>{this.props.children}</div>
-                <div>
-                    <li><Link to="a">Repos</Link></li>
+                <div className="container">
+                    <div>
+                        <span>
+                            ims 后台管理系统
+                        </span>
+                        <span className={"hello"}>
+                            ims 欢迎你
+                        </span>
+                    </div>
+                    <ul className="nav nav-tabs" id="myTab">
+                        <li className="link active">
+                            <Link to="home/Paper">
+                                Papers
+                            </Link>
+                        </li>
+                        <li className="link">
+                            <Link to="home/Patent">
+                                Patent
+                            </Link>
+                        </li>
+                        <li className="link">
+                            <Link to="home/Software_copyright">
+                                Software_copyright
+                            </Link>
+                        </li>
+                        <li className="link">
+                            <Link to="home/Awards">
+                                Awards
+                            </Link>
+                        </li>
+                    </ul>
+
+                    {this.props.children}
+                    <Input item = {"222"}/>
+
                 </div>
-                <div>
-                    <li><Link to="b">About</Link></li>
-                </div>
-                <div>
-                    <li><Link to="Contact">Contact</Link></li>
-                </div>
-                <div>
-                    fagoijgoajg
-                </div>
-                <ul>
-                    { this.getTodoItem() }
-                </ul>
             </Fragment>
         )
     }
-    componentDidMount() {
-        console.log("oklogin")
-        axios.get(API)
-            .then((res2222)=>{
-                let data = JSON.parse(res2222.data);
-                console.log(data)
-                this.setState ({
-                    list:data.data
-                })
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-    }
+
     getTodoItem(){
         return this.state.list.map((item,index) =>{
             return (
@@ -62,6 +68,6 @@ class index extends Component{
 
 }
 
-export default index
+export default Home
 
 

@@ -1,9 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-
-// import App from './admin/login';
-import Router from './admin/router';
-
+import Router from './admin/Router';
+// import Router from './base_Component/TodoList';
 
 ReactDOM.render(<Router />, document.getElementById('root'));
 

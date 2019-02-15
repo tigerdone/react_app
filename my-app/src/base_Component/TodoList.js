@@ -3,7 +3,11 @@ import TodoItem from './Todoitem';
 import Test from './test'
 import './style.css';
 import axios from 'axios'//发送ajax 请求
+import { observable } from "mobx"
 
+class MyStore {
+    @observable myName = 'hunter'
+}
 
 class TodoList extends Component{
     constructor(props) {
@@ -19,7 +23,7 @@ class TodoList extends Component{
 
     }
 
-    //性能提升的几个方法
+    // 性能提升的几个方法
     // 类似的作用域的绑定放构造函数里面 this.handleInputChange = this.handleInputChange.bind(this)
     // setState是一个异步函数，会把多次改变合并成一次
     // 底层比对：同层比对，key值比对，提高效率
