@@ -147,9 +147,8 @@ class Login extends Component{
         const values = this.state;
         console.log(values, '提交数据');
 
-        axios.post('/my_test',values)
+        axios.post('/admin/login',values)
         .then((res)=>{
-            console.log(res)
             if (res.status === 200){
                 window.location.hash = "#/home"
             }

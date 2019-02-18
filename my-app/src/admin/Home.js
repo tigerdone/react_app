@@ -1,18 +1,13 @@
 import React,{Component,Fragment} from 'react'
 import {Link} from 'react-router'
 import Input from "./input/Input";
+// import Store from "./input/store"
 
+import {observer,inject} from 'mobx-react';
 
-
-
+@inject('Store')
+@observer
 class Home extends Component{
-    constructor(props) {
-        super(props);
-        //当组件的state或者Props发生改变的时候，render函数就会重新执行
-        this.state = {
-            list: []
-        }
-    }
     render(){
         return (
             <Fragment>
@@ -50,7 +45,9 @@ class Home extends Component{
 
                     {this.props.children}
                     <Input item = {"222"}/>
+                    <div>
 
+                    </div>
                 </div>
             </Fragment>
         )

@@ -1,7 +1,11 @@
 import React,{Component} from 'react'
+// import Store from '../input/store'
+import Item from './Item'
+import {observer,inject} from 'mobx-react'
 
+@inject('Store')
+@observer
 class Index extends Component{
-
     render(){
         return (
             <div className="tab-content">
@@ -33,45 +37,14 @@ class Index extends Component{
                             </tr>
                             </thead>
                             <tbody className="my_tbody">
-                            <tr className="active">
-                                <td>
-                                    <p className="body_item">
-                                        233sdfsdf
-                                    </p>
-                                </td>
-                                <td>
-                                    <p className="body_item">
-                                        234fdgfdg
-                                    </p>
-                                </td>
-                                <td>
-                                    <p className="body_item">
-                                        235dfgfdg
-                                    </p>
-                                </td>
-                                <td>
-                                    <button
-                                        name=""
-                                        type="button"
-                                        className="btn btn-success edit_id"
-                                        data-toggle="modal"
-                                        data-target="#myModal"
-                                    >
-                                        修改
-                                    </button>
-                                </td>
-                                <td>
-                                    <button
-                                        name=""
-                                        type="button"
-                                        className="btn btn-success delete_id"
-                                        data-toggle="modal"
-                                        data-target="#myModal2"
-                                    >
-                                        删除
-                                    </button>
-                                </td>
-                            </tr>
+                            {
+                                this.props.Store.Software_copyright.map(
+                                    (todo) => <Item
+                                        key = {Math.random()}
+                                        items = {todo}
+                                    />
+                                )
+                            }
                             </tbody>
                         </table>
                     </div>

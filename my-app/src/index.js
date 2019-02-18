@@ -1,7 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Router from './admin/Router';
-// import Router from './base_Component/TodoList';
+import {Provider} from 'mobx-react';
+import Store from './admin/input/store'
 
-ReactDOM.render(<Router />, document.getElementById('root'));
-
+ReactDOM.render(
+    <Provider Store = {Store}>
+        <Router />
+    </Provider>
+    , document.getElementById('root')
+);
