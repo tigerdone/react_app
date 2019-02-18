@@ -2,11 +2,13 @@ import React,{Component} from 'react'
 import {observer,inject} from 'mobx-react'
 import axios from 'axios'
 
+
 @inject('Store')
 @observer
 class Input extends Component{
 
     render(){
+        const {Store}=this.props;
         return(
             <div className="modal fade" id="myModal">
                 <div className="modal-dialog">
@@ -41,9 +43,9 @@ class Input extends Component{
                                             required="required"
                                             type="text"
                                             placeholder="item"
-                                            value={this.props.Store.InputBox.item}
+                                            value={Store.InputBox.item}
                                             name="name"
-                                            onChange={this.reUpdateItem}
+                                            onChange={(e)=>Store.handleInputBoxInput('item',e.target.value)}
                                         />
                                     </div>
                                     <div className={"message_name"}>
@@ -109,16 +111,6 @@ class Input extends Component{
         )
     }
 
-    reUpdatePaper = (e) =>{
-        this.props.Store.setInputPaper(e.target.value);
-    }
-    reUpdateItem = (e) =>{
-        this.props.Store.setInputItem(e.target.value);
-    }
-    reUpdateVideo = (e) =>{
-        this.props.Store.setInputVideo(e.target.value);
-    }
-
     handleApply = (e) =>{
         var a = this.props.Store.InputBox;
         delete a._id;
@@ -148,7 +140,7 @@ class Input extends Component{
             })
             .catch(function (error) {
                 console.log(error);
-                alert("密码错误")
+                alert("提交失败")
             });
     }
 }

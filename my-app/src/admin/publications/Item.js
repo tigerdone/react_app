@@ -40,7 +40,7 @@ class Index extends Component{
                             data-toggle="modal"
                             data-target="#myModal"
                             // onClick={(items)=>this.update_input}
-                            onClick={this.updateInput}
+                            onClick={()=>this.updateInput(items)}
                         >
                             修改
                         </button>

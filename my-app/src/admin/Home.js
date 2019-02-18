@@ -42,7 +42,26 @@ class Home extends Component{
                             </Link>
                         </li>
                     </ul>
-
+                    {/*{*/}
+                        {/*this.state.activeTab==='paper' ?*/}
+                            {/*<Paper />*/}
+                            {/*:null*/}
+                    {/*}*/}
+                    {/*{*/}
+                        {/*this.state.activeTab==='Patent' ?*/}
+                            {/*<Paper />*/}
+                            {/*:null*/}
+                    {/*}*/}
+                    {/*{*/}
+                        {/*this.state.activeTab==='paper' ?*/}
+                            {/*<Paper />*/}
+                            {/*:null*/}
+                    {/*}*/}
+                    {/*{*/}
+                        {/*this.state.activeTab==='paper' ?*/}
+                            {/*<Paper />*/}
+                            {/*:null*/}
+                    {/*}*/}
                     {this.props.children}
                     <Input item = {"222"}/>
                     <div>

@@ -61,6 +61,11 @@ class Store {
         paper:"",
     }
 
+    @action
+    handleInputBoxInput=(key,value)=>{
+        this.InputBox[key]=value;
+    }
+
     getPaper=(e)=>{
         axios.get('/admin/PaperData')
             .then((res)=>{
@@ -111,7 +116,7 @@ class Store {
         axios.get('/admin/AwardsData')
             .then((res)=>{
                 if (res.status === 200){
-                    this.addAwards(res.data[0])
+                    this.Awards.push(res.data[0]);
                 }
                 else {
                     console.log("error")
@@ -121,9 +126,11 @@ class Store {
                 console.log(error);
             });
     }
-
+    deepClone=(v)=>{
+        return JSON.parse(JSON.stringify(v));
+    }
     setInput=(value)=>{
-        this.InputBox = value
+        this.InputBox = this.deepClone(value);
     }
     setInputItem=(value)=>{
         this.InputBox.item = value
