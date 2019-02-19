@@ -23,15 +23,10 @@ class Input extends Component{
                         {/*// <!-- 模态框主体 -->*/}
                         <div className="modal-body">
                             <div className="message_box">
-                                {/*<p className="item">*/}
-                                    {/*登录*/}
-                                {/*</p>*/}
                                 <form
                                     id="my_form"
-                                    // action="/#/a"
                                     className="message_form"
                                     method="post"
-                                    // onSubmit={this.handleLogin}
 
                                 >
                                     <div className={"message_name"}>
@@ -57,7 +52,7 @@ class Input extends Component{
                                             required="required"
                                             placeholder="paper link"
                                             name="password"
-                                            value={this.props.Store.InputBox.paper}
+                                            value={Store.InputBox.paper}
                                             onChange={this.reUpdatePaper}
 
                                         />
@@ -71,7 +66,7 @@ class Input extends Component{
                                             required="required"
                                             placeholder="video link"
                                             name="password"
-                                            value={this.props.Store.InputBox.video}
+                                            value={Store.InputBox.video}
                                             onChange={this.reUpdateVideo}
 
                                         />
