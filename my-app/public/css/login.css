@@ -1,5 +1,5 @@
-html {
-    background: url("../img/login.jpg") center top no-repeat;
+ html {
+    background: url("../img/login.jpg") center top no-repeat fixed;
 }
 
 html body{
@@ -92,7 +92,7 @@ button{
     line-height: 1.42857143;
     text-align: center;
     white-space: nowrap;
-    width: 41%;
+    /*width: 41%;*/
     margin: 0 130px;
     background-color: #46be68;
     vertical-align: middle;

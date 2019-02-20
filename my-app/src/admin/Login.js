@@ -1,21 +1,11 @@
 import React,{Component} from 'react'
-import axios from 'axios'//发送ajax 请求
+import {inject, observer} from "mobx-react/index";
 
+@inject('Store')
+@observer
 class Login extends Component{
-    constructor(props){
-        super(props)
-        this.state = {
-            inputName: '',
-            inputPassword: '',
-            power_id: '管理员',
-        }
-        // this.handleInputNameChange = this.handleInputNameChange.bind(this)
-        // this.handleInputPasswordChange = this.handleInputPasswordChange.bind(this)
-        // this.handleRadioChange = this.handleRadioChange.bind(this)
-        // this.handleLogin = this.handleLogin.bind(this)
-    }
-
     render(){
+        const {Store} = this.props;
         return (
             <div className="page">
                 <div className={"body_container"}>
@@ -28,11 +18,8 @@ class Login extends Component{
                         </p>
                         <form
                             id="my_form"
-                            // action="/#/a"
                             className="input_box"
                             method="post"
-                            // onSubmit={this.handleLogin}
-
                         >
                             <div className="input_item">
                                 <div className="the_icon">
@@ -44,7 +31,7 @@ class Login extends Component{
                                     type="text"
                                     placeholder="账号"
                                     name="name"
-                                    onChange={this.handleInputNameChange}
+                                    onChange={(e)=>{Store.loginInputBoxInput("inputName",e.target.value)}}
                                 />
                             </div>
                             <div className="input_item">
@@ -56,12 +43,12 @@ class Login extends Component{
                                     required="required"
                                     placeholder="密码"
                                     name="password"
-                                    onChange={this.handleInputPasswordChange}
+                                    onChange={(e)=>{Store.loginInputBoxInput("inputPassword",e.target.value)}}
                                 />
                             </div>
                             <div
                                 className="input_item radio"
-                                onChange={this.handleRadioChange}
+                                onChange={(e)=>{Store.loginInputBoxInput("power_id",e.target.value)}}
                             >
                                 <div className="radio_item">
                                     <label>
@@ -71,8 +58,6 @@ class Login extends Component{
                                             name="login_type"
                                             type="radio"
                                             defaultChecked
-                                            // checked={this.power_id === '管理员'}
-
                                         />
                                         <span>
                                             管理员
@@ -86,8 +71,6 @@ class Login extends Component{
                                             value="超级管理员"
                                             name="login_type"
                                             type="radio"
-                                            // checked={this.power_id === '超级管理员'}
-
                                         />
                                         <span>
                                             超级管理员
@@ -95,22 +78,19 @@ class Login extends Component{
                                     </label>
                                 </div>
                             </div>
-                            <div className="attention">
-                                {/*<!--message-->*/}
-                            </div>
                             <div className="btn_item">
                                 <button
                                     id="my_submit"
                                     type="button"
                                     className="button login_in"
-                                    onClick={this.handleLogin}
+                                    onClick={()=>{Store.handleLogin()}}
                                 >
                                     登录
                                 </button>
                                 <button
                                     type="button"
                                     className="button"
-                                    onClick={this.handleAbandon}
+                                    onClick={()=>{window.location.href='../../'}}
                                 >
                                     取消
                                 </button>
@@ -121,50 +101,6 @@ class Login extends Component{
             </div>
         )
     }
-
-    handleInputNameChange=(e)=>{
-        const value = e.target.value;
-        this.setState(()=>({
-            inputName: value
-        }))
-    }
-    handleInputPasswordChange=(e)=>{
-        const value = e.target.value;
-        this.setState(()=>({
-            inputPassword: value
-        }))
-    }
-    handleRadioChange=(e)=>{
-        const value = e.target.value;
-        this.setState(()=>({
-            power_id: value
-        }))
-    }
-
-    handleLogin=(e)=>{
-        e.preventDefault();
-
-        const values = this.state;
-        console.log(values, '提交数据');
-
-        axios.post('/admin/login',values)
-        .then((res)=>{
-            if (res.status === 200){
-                window.location.hash = "#/home"
-            }
-            else {
-                console.log("error")
-            }
-        })
-        .catch(function (error) {
-            console.log(error);
-            alert("密码错误")
-        });
-    }
-    handleAbandon=()=>{
-        window.location.href='../../'
-    }
-
 }
 
 export default Login

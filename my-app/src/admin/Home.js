@@ -1,7 +1,7 @@
 import React,{Component,Fragment} from 'react'
-import {Link} from 'react-router'
 import Input from "./input/Input";
-// import Store from "./input/store"
+import DeleteConfirm from "./input/DeleteConfirm";
+import Paper from "./publications/Paper";
 
 import {observer,inject} from 'mobx-react';
 
@@ -9,10 +9,11 @@ import {observer,inject} from 'mobx-react';
 @observer
 class Home extends Component{
     render(){
+        const {Store} = this.props;
         return (
             <Fragment>
                 <div className="container">
-                    <div>
+                    <div className={"title"}>
                         <span>
                             ims 后台管理系统
                         </span>
@@ -21,67 +22,49 @@ class Home extends Component{
                         </span>
                     </div>
                     <ul className="nav nav-tabs" id="myTab">
-                        <li className="link active">
-                            <Link to="home/Paper">
+                        <li className={"link" + Store.getClassName("paper")}>
+                            <button onClick={(e)=>{Store.getPaper("paper");Store.setClassName("paper")}}>
                                 Papers
-                            </Link>
+                            </button>
                         </li>
-                        <li className="link">
-                            <Link to="home/Patent">
+                        <li className={"link" + Store.getClassName("patent")}>
+                            <button onClick={(e)=>{Store.getPaper("patent");Store.setClassName("patent")}}>
                                 Patent
-                            </Link>
+                            </button>
                         </li>
-                        <li className="link">
-                            <Link to="home/Software_copyright">
+                        <li className={"link" + Store.getClassName("software_copyright")}>
+                            <button onClick={(e)=>{Store.getPaper("software_copyright");Store.setClassName("software_copyright")}}>
                                 Software_copyright
-                            </Link>
+                            </button>
                         </li>
-                        <li className="link">
-                            <Link to="home/Awards">
+                        <li className={"link" + Store.getClassName("awards")}>
+                            <button onClick={(e)=>{Store.getPaper("awards");Store.setClassName("awards")}}>
                                 Awards
-                            </Link>
+                            </button>
                         </li>
-                    </ul>
-                    {/*{*/}
-                        {/*this.state.activeTab==='paper' ?*/}
-                            {/*<Paper />*/}
-                            {/*:null*/}
-                    {/*}*/}
-                    {/*{*/}
-                        {/*this.state.activeTab==='Patent' ?*/}
-                            {/*<Paper />*/}
-                            {/*:null*/}
-                    {/*}*/}
-                    {/*{*/}
-                        {/*this.state.activeTab==='paper' ?*/}
-                            {/*<Paper />*/}
-                            {/*:null*/}
-                    {/*}*/}
-                    {/*{*/}
-                        {/*this.state.activeTab==='paper' ?*/}
-                            {/*<Paper />*/}
-                            {/*:null*/}
-                    {/*}*/}
-                    {this.props.children}
-                    <Input item = {"222"}/>
-                    <div>
+                        <li className={"addBtn"}>
+                            <button
+                                name=""
+                                type="button"
+                                className="btn btn-success edit_id"
+                                data-toggle="modal"
+                                data-target="#myModal"
+                                // onClick={(items)=>this.update_input}
+                                onClick={()=>Store.clearInput()}
+                            >
+                                添加
+                            </button>
+                        </li>
 
-                    </div>
+                    </ul>
+
+                    <Paper/>
+                    <Input/>
+                    <DeleteConfirm/>
                 </div>
             </Fragment>
         )
     }
-
-    getTodoItem(){
-        return this.state.list.map((item,index) =>{
-            return (
-                <div>
-                    {item}
-                </div>
-            )
-        })
-    }
-
 }
 
 export default Home

@@ -1,20 +1,12 @@
 import React,{Component} from 'react'
-// import Store from '../input/store'
 import {observer,inject} from 'mobx-react'
 
 @inject('Store')
 @observer
 class Index extends Component{
-    constructor(props) {
-        super(props);
-        //当组件的state或者Props发生改变的时候，render函数就会重新执行
-        const {items} = this.props;
-        this.state = {
-            item: items
-        }
-    }
     render(){
-        const {items} = this.props;
+        const {items,Store} = this.props;
+
         return (
                 <tr className="active">
                     <td>
@@ -39,8 +31,7 @@ class Index extends Component{
                             className="btn btn-success edit_id"
                             data-toggle="modal"
                             data-target="#myModal"
-                            // onClick={(items)=>this.update_input}
-                            onClick={()=>this.updateInput(items)}
+                            onClick={()=>Store.setInput(items)}
                         >
                             修改
                         </button>
@@ -51,17 +42,16 @@ class Index extends Component{
                             type="button"
                             className="btn btn-success delete_id"
                             data-toggle="modal"
-                            data-target="#myModal2"
+                            data-target="#myModalDelete"
+                            // onClick={()=>Store.handleDelete(items)}
+                            onClick={()=>Store.setInput(items)}
+
                         >
                             删除
                         </button>
                     </td>
                 </tr>
         )
-    }
-    updateInput = (e) =>{
-        console.log(e.target)
-            this.props.Store.setInput(this.state.item)
     }
 }
 
