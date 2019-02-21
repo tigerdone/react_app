@@ -7,13 +7,14 @@ class index extends Component{
     render(){
         return (
             <Router history={hashHistory}>
-                <Route path='/' component={Login}></Route>
-                <Route path='/login' component={Login}></Route>
-                <Route path='/home' component={Home}></Route>
+                <Route path='/' component={Login}/>
+                <Route path='/login' component={Login}/>
+                <Route path='/home' component={Home}/>
             </Router>
         )
     }
 }
+
 export default index
 
 

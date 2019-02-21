@@ -1,26 +1,37 @@
 import React,{Component} from 'react'
-import {observer,inject} from 'mobx-react'
-
 import DropDown from './DropDown'
 
-
-@inject('Store')
-@observer
 class Input extends Component{
+    inputUpdate=()=>{
+        console.log("inputUpdate");
+    };
+
+    handleInputBoxInput=(key,value)=>{
+        this.setState({
+            [key]:value
+        });
+    };
+    constructor(props){
+        super(props);
+        this.state ={
+            item:"",
+            paper:"",
+            video:"",
+
+        };
+    }
+
     render(){
-        const {Store}=this.props;
+        const InputBox = this.state.inputBox;
         return(
             <div className="modal fade" id="myModal">
                 <div className="modal-dialog">
                     <div className="modal-content">
-                        {/*// <!-- 模态框头部 -->*/}
                         <div className="modal-header">
                             <h4 className="modal-title">
                                 新的信息
                             </h4>
-                            <button type="button" className="close" data-dismiss="modal">&times;</button>
                         </div>
-                        {/*// <!-- 模态框主体 -->*/}
                         <div className="modal-body">
                             <div className="message_box">
                                 <form
@@ -28,12 +39,12 @@ class Input extends Component{
                                     className="message_form"
                                     method="post"
                                 >
-                                    {
-                                       Store.InputBox._id === "" ?(
-                                           <DropDown/>
-                                       )
-                                       :null
-                                    }
+                                    {/*{*/}
+                                       {/*this.InputBox._id === "" ?(*/}
+                                           {/*<DropDown/>*/}
+                                       {/*)*/}
+                                       {/*:null*/}
+                                    {/*}*/}
                                     <div className={"message_name"}>
                                         item:
                                     </div>
@@ -41,11 +52,10 @@ class Input extends Component{
                                         <textarea
                                             className="username"
                                             required="required"
-                                            type="text"
                                             placeholder="item"
-                                            value={Store.InputBox.item}
+                                            value={this.state.item}
                                             name="name"
-                                            onChange={(e)=>Store.handleInputBoxInput('item',e.target.value)}
+                                            onChange={(e)=>this.handleInputBoxInput('item',e.target.value)}
                                         />
                                     </div>
                                     <div className={"message_name"}>
@@ -57,9 +67,8 @@ class Input extends Component{
                                             required="required"
                                             placeholder="paper link"
                                             name="password"
-                                            value={Store.InputBox.paper}
-                                            onChange={(e)=>Store.handleInputBoxInput('paper',e.target.value)}
-
+                                            value={this.state.paper}
+                                            onChange={(e)=>this.handleInputBoxInput('paper',e.target.value)}
                                         />
                                     </div>
                                     <div className={"message_name"}>
@@ -71,9 +80,8 @@ class Input extends Component{
                                             required="required"
                                             placeholder="video link"
                                             name="password"
-                                            value={Store.InputBox.video}
-                                            onChange={(e)=>Store.handleInputBoxInput('video',e.target.value)}
-
+                                            value={this.state.video}
+                                            onChange={(e)=>this.handleInputBoxInput('video',e.target.value)}
                                         />
                                     </div>
                                     <div className="btn_item message_btn">
@@ -81,9 +89,8 @@ class Input extends Component{
                                             id="my_submit"
                                             type="button"
                                             className="button login_in"
-                                            onClick={Store.inputUpdate}
+                                            onClick={this.inputUpdate}
                                             data-dismiss="modal"
-
                                         >
                                             提交
                                         </button>

@@ -1,11 +1,40 @@
 import React,{Component} from 'react'
-import {inject, observer} from "mobx-react/index";
+import axios from "axios/index";
 
-@inject('Store')
-@observer
 class Login extends Component{
+    loginInputBoxInput=(key,value)=>{
+        console.log(key);
+        this.setState({
+            [key]:value
+        })
+    };
+    handleLogin=()=>{
+        console.log(this.state.inputName, '提交数据');
+        axios.post('/admin/login',this.state)
+            .then((res)=>{
+                if (res.status === 200){
+                    window.location.hash = "#/home"
+                }
+                else {
+                    console.log("error")
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+                alert("密码错误")
+            });
+    };
+    constructor(props){
+        super(props);
+        this.state ={
+            inputName:"",
+            inputPassword:"",
+            power_id:"",
+
+        }
+    }
+
     render(){
-        const {Store} = this.props;
         return (
             <div className="page">
                 <div className={"body_container"}>
@@ -23,7 +52,10 @@ class Login extends Component{
                         >
                             <div className="input_item">
                                 <div className="the_icon">
-                                    <img src="img/user.jpg" alt="user"/>
+                                    <img
+                                        src="img/user.jpg"
+                                        alt="user"
+                                    />
                                 </div>
                                 <input
                                     className="username"
@@ -31,24 +63,29 @@ class Login extends Component{
                                     type="text"
                                     placeholder="账号"
                                     name="name"
-                                    onChange={(e)=>{Store.loginInputBoxInput("inputName",e.target.value)}}
+                                    value={this.state.inputName}
+                                    onChange={(e)=>{this.loginInputBoxInput("inputName",e.target.value)}}
                                 />
                             </div>
                             <div className="input_item">
                                 <div className="the_icon">
-                                    <img src="img/password.jpg" alt="user"/>
+                                    <img
+                                        src="img/password.jpg"
+                                        alt="user"
+                                    />
                                 </div>
                                 <input
                                     type="password"
                                     required="required"
                                     placeholder="密码"
                                     name="password"
-                                    onChange={(e)=>{Store.loginInputBoxInput("inputPassword",e.target.value)}}
+                                    value={this.state.inputPassword}
+                                    onChange={(e)=>this.loginInputBoxInput("inputPassword",e.target.value)}
                                 />
                             </div>
                             <div
                                 className="input_item radio"
-                                onChange={(e)=>{Store.loginInputBoxInput("power_id",e.target.value)}}
+                                onChange={(e)=>this.loginInputBoxInput("power_id",e.target.value)}
                             >
                                 <div className="radio_item">
                                     <label>
@@ -83,7 +120,7 @@ class Login extends Component{
                                     id="my_submit"
                                     type="button"
                                     className="button login_in"
-                                    onClick={()=>{Store.handleLogin()}}
+                                    onClick={this.handleLogin}
                                 >
                                     登录
                                 </button>

@@ -1,13 +1,9 @@
 import React,{Component} from 'react'
 import Item from './Item'
-import {observer,inject} from 'mobx-react'
 
-@inject('Store')
-@observer
 class Index extends Component{
     render(){
-        const {Store} = this.props;
-
+        const {Data} = this.props;
         return (
             <div className="tab-content">
                 <div className="tab-pane active" id="profile">
@@ -39,7 +35,7 @@ class Index extends Component{
                             </thead>
                             <tbody className="my_tbody">
                                 {
-                                    Store.Paper.map(
+                                    Data.map(
                                         (todo) => <Item
                                             key = {Math.random()}
                                             items = {todo}
