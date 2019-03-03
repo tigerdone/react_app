@@ -2,48 +2,41 @@ import {
     observable,
     action,
     computed,
-    decorate
 } from 'mobx'
 import axios from 'axios'//发送ajax 请求
+import methods from '../function/method'
 
-// configure({ enforceActions: value })
-
-class Store {
+class StorePub {
     constructor() {
         this.getPaper("Paper");
     }
-    @observable Paper = []
+    @observable Paper = [];
     @observable InputBox = {
         _id:"",
         type:"",
         item:"",
         video:"",
         paper:"",
-    }
-    @observable loginInputBox = {
-        inputName: '',
-        inputPassword: '',
-        power_id: '管理员',
-    }
+    };
+
+    @observable show = true;
+
     @computed get PaperLength(){
         return this.Paper.length;
     }
     @action
-    handleInputBoxInput=(key,value)=>{
+    handleInputBoxInput(key,value){
         this.InputBox[key]=value;
-    }
-    @action
-    loginInputBoxInput=(key,value)=>{
-        this.loginInputBox[key]=value;
-    }
+    };
+
     @action
     addPaper(item){
         this.Paper.push(item)
     }
+
     getPaper=(e)=>{
-        // console.log("aaa"+e)
-        this.Paper = []
-        var router = '/admin/Data?name=' + e.toLocaleLowerCase();
+        this.Paper = [];
+        let router = '/admin/Data?name=' + e.toLocaleLowerCase();
         axios.get(router)
             .then((res)=>{
                 if (res.status === 200){
@@ -58,28 +51,27 @@ class Store {
             .catch(function (error) {
                 console.log(error);
             });
-    }
-    deepClone=(v)=>{
-        return JSON.parse(JSON.stringify(v));
-    }
+    };
     setInput=(value)=>{
-        this.InputBox = this.deepClone(value);
-    }
+        this.InputBox = methods.deepClone(value);
+
+        this.show = true;
+
+    };
     clearInput=()=>{
         this.InputBox._id= "";
         this.InputBox.type= "paper";
         this.InputBox.item= "";
         this.InputBox.video= "";
         this.InputBox.paper= "";
-
         // Object.keys(this.InputBox).forEach(function(ss){
         //     this.InputBox[ss] = "";
         // })
-    }
-    inputUpdate = (e) =>{
-        var router;
+    };
+    inputUpdate = () =>{
+        let router;
         if (this.InputBox._id === ""){
-            console.log(this.InputBox)
+            console.log(this.InputBox);
             router = '/admin/insertPaper'
         }
         else{
@@ -98,26 +90,10 @@ class Store {
                 console.log(error);
                 alert("提交失败")
             });
-        this.relode()
+        this.reLode()
+    };
 
-    }
-    handleLogin=(e)=>{
-        console.log(this.loginInputBox.inputName, '提交数据');
-        axios.post('/admin/login',this.loginInputBox)
-            .then((res)=>{
-                if (res.status === 200){
-                    window.location.hash = "#/home"
-                }
-                else {
-                    console.log("error")
-                }
-            })
-            .catch(function (error) {
-                console.log(error);
-                alert("密码错误")
-            });
-    }
-    handleDelete=(e)=>{
+    handleDelete=()=>{
         axios.post('/admin/deleteOne',this.InputBox)
             .then((res)=>{
                 if (res.status === 200){
@@ -130,11 +106,25 @@ class Store {
             .catch(function (error) {
                 console.log(error);
             });
-        this.relode()
-    }
-
-    relode=(e)=>{
-        var e = "paper";
+        this.reLode()
+    };
+    handleLoginOut=()=>{
+        axios.get('/admin/LoginOut')
+            .then((res)=>{
+                if (res.status === 200){
+                    alert("注销成功");
+                    window.location.hash = "#/"
+                }
+                else {
+                    console.log("error")
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
+    reLode=()=>{
+        let e = "paper";
         if(this.Paper.length !== 0){
             if (this.Paper[0].type === "patent") {
                 e = "patent";
@@ -146,10 +136,8 @@ class Store {
                 e = "awards";
             }
         }
-
         this.getPaper(e)
-    }
-
+    };
     @observable activeClass = "paper";
     getClassName=(e)=>{
         if(this.activeClass === e){
@@ -157,13 +145,11 @@ class Store {
         }
         else {
             return ""
-
         }
-    }
+    };
     setClassName=(e)=>{
         this.activeClass = e
     }
+
 }
-
-
-export default new Store();
+export default new StorePub();

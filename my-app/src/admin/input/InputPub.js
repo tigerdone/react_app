@@ -4,11 +4,11 @@ import {observer,inject} from 'mobx-react'
 import DropDown from './DropDown'
 
 
-@inject('Store')
+@inject('StorePub')
 @observer
-class Input extends Component{
+class InputPub extends Component{
     render(){
-        const {Store}=this.props;
+        const {StorePub}=this.props;
         return(
             <div className="modal fade" id="myModal">
                 <div className="modal-dialog">
@@ -29,10 +29,10 @@ class Input extends Component{
                                     method="post"
                                 >
                                     {
-                                       Store.InputBox._id === "" ?(
-                                           <DropDown/>
-                                       )
-                                       :null
+                                        StorePub.InputBox._id === "" ?(
+                                                <DropDown/>
+                                            )
+                                            :null
                                     }
                                     <div className={"message_name"}>
                                         item:
@@ -41,11 +41,10 @@ class Input extends Component{
                                         <textarea
                                             className="username"
                                             required="required"
-                                            type="text"
                                             placeholder="item"
-                                            value={Store.InputBox.item}
+                                            value={StorePub.InputBox.item}
                                             name="name"
-                                            onChange={(e)=>Store.handleInputBoxInput('item',e.target.value)}
+                                            onChange={(e)=>StorePub.handleInputBoxInput('item',e.target.value)}
                                         />
                                     </div>
                                     <div className={"message_name"}>
@@ -57,9 +56,8 @@ class Input extends Component{
                                             required="required"
                                             placeholder="paper link"
                                             name="password"
-                                            value={Store.InputBox.paper}
-                                            onChange={(e)=>Store.handleInputBoxInput('paper',e.target.value)}
-
+                                            value={StorePub.InputBox.paper}
+                                            onChange={(e)=>StorePub.handleInputBoxInput('paper',e.target.value)}
                                         />
                                     </div>
                                     <div className={"message_name"}>
@@ -71,8 +69,8 @@ class Input extends Component{
                                             required="required"
                                             placeholder="video link"
                                             name="password"
-                                            value={Store.InputBox.video}
-                                            onChange={(e)=>Store.handleInputBoxInput('video',e.target.value)}
+                                            value={StorePub.InputBox.video}
+                                            onChange={(e)=>StorePub.handleInputBoxInput('video',e.target.value)}
 
                                         />
                                     </div>
@@ -81,7 +79,7 @@ class Input extends Component{
                                             id="my_submit"
                                             type="button"
                                             className="button login_in"
-                                            onClick={Store.inputUpdate}
+                                            onClick={StorePub.inputUpdate}
                                             data-dismiss="modal"
 
                                         >
@@ -106,4 +104,4 @@ class Input extends Component{
 }
 
 
-export default Input;
+export default InputPub;

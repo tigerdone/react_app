@@ -1,23 +1,26 @@
 import React,{Component} from 'react'
 import {observer,inject} from 'mobx-react'
+import Image from "../Element/Image";
+import Textarea from "../Element/Textarea";
+import ItemInput from "./ItemInput";
 
-
-@inject('StorePub')
+@inject('StorePro')
 @observer
 class Input extends Component{
     render(){
-        const {StorePub}=this.props;
+        const {StorePro}=this.props;
         return(
-            <div className="modal fade" id="myModalDelete">
+            <div className="modal fade" id="myModalPro">
                 <div className="modal-dialog">
                     <div className="modal-content">
                         {/*// <!-- 模态框头部 -->*/}
                         <div className="modal-header">
                             <h4 className="modal-title">
-                                确认删除？
+                                新的Project
                             </h4>
                             <button type="button" className="close" data-dismiss="modal">&times;</button>
                         </div>
+
                         {/*// <!-- 模态框主体 -->*/}
                         <div className="modal-body">
                             <div className="message_box">
@@ -25,35 +28,29 @@ class Input extends Component{
                                     id="my_form"
                                     className="message_form"
                                     method="post"
+                                    encType={"multipart/form-data"}
                                 >
-                                    <div className={"message_name"}>
-                                        item:
-                                    </div>
-                                    <div className="input_message">
-                                        {StorePub.InputBox.item}
-                                    </div>
-                                    <div className={"message_name"}>
-                                        paper link:
-                                    </div>
-                                    <div className="input_message">
-                                        {StorePub.InputBox.paper}
-                                    </div>
-                                    <div className={"message_name"}>
-                                        video link:
-                                    </div>
-                                    <div className="input_message">
-                                        {StorePub.InputBox.video}
-                                    </div>
+                                    <Image />
+
+                                    <Textarea/>
+                                    <ItemInput item={"Advisor"}/>
+                                    <ItemInput item={"ProgramLeader"}/>
+                                    <ItemInput item={"ProgramMembers"}/>
+
+                                    <ItemInput item={"PaperLink"}/>
+                                    <ItemInput item={"PDFLink"}/>
+                                    <ItemInput item={"PosterLink"}/>
+                                    <ItemInput item={"VideoLink"}/>
+
                                     <div className="btn_item message_btn">
                                         <button
                                             id="my_submit"
                                             type="button"
                                             className="button login_in"
-                                            onClick={StorePub.handleDelete}
+                                            onClick={StorePro.insertOne}
                                             data-dismiss="modal"
-
                                         >
-                                            删除
+                                            提交
                                         </button>
                                         <button
                                             type="button"

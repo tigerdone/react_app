@@ -17,7 +17,7 @@ html body{
     margin: 60px 0;
 }
 .container{
-    width: 440px;
+    min-width: 1140px;
     margin: 30px auto;
     border: 1px solid #e5e9ed;
     background: #ffffff9c;
@@ -58,7 +58,7 @@ html body{
 }
 
 .input_message input{
-    margin: 5px 0 32px 0;
+    /* margin: 5px 0 32px 0; */
     display:  flex;
     height: 38px;
     border: 1px solid #e5e9ed;
@@ -81,9 +81,14 @@ html body{
 }
 .message_name{
     font-size: 20px;
-    font-weight: 700;
     padding: 0 0 0 3px;
+    margin: 11px 0 0 0;
 }
+.message_name p{
+     font-weight: 700;
+     margin:  0;
+}
+
 button{
     display: inline-block;
     padding: 6px 12px;
@@ -153,8 +158,12 @@ button{
 }
 
 .button{
-
-    height: 40px;
+    
+height: 40px;
+    
+min-width: 70px;
+    
+border-radius: 4px;
 }
 
 .the_icon{

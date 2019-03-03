@@ -1,16 +1,16 @@
 import React,{Component} from 'react'
 import {observer,inject} from 'mobx-react'
 
-@inject('Store')
+@inject('StorePub')
 @observer
 class DropDown extends Component{
     render(){
-        const {Store} = this.props;
+        const {StorePub} = this.props;
         return (
             <label>choose type：
                 <select
-                    value={Store.InputBox.type}
-                    onChange={(e)=>Store.handleInputBoxInput("type",e.target.value)}
+                    value={StorePub.InputBox.type}
+                    onChange={(e)=>StorePub.handleInputBoxInput("type",e.target.value)}
                 >
                     <option value="paper">paper</option>
                     <option value="patent">patent</option>

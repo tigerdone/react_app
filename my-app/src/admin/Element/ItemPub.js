@@ -1,12 +1,11 @@
 import React,{Component} from 'react'
 import {observer,inject} from 'mobx-react'
 
-@inject('Store')
+@inject('StorePub')
 @observer
 class Index extends Component{
     render(){
-        const {items,Store} = this.props;
-
+        const {items,StorePub} = this.props;
         return (
                 <tr className="active">
                     <td>
@@ -24,14 +23,14 @@ class Index extends Component{
                             {items.video}
                         </p>
                     </td>
-                    <td>
+                    <td className={"repaireBtn"}>
                         <button
                             name=""
                             type="button"
                             className="btn btn-success edit_id"
                             data-toggle="modal"
                             data-target="#myModal"
-                            onClick={()=>Store.setInput(items)}
+                            onClick={()=>StorePub.setInput(items)}
                         >
                             修改
                         </button>
@@ -43,9 +42,7 @@ class Index extends Component{
                             className="btn btn-success delete_id"
                             data-toggle="modal"
                             data-target="#myModalDelete"
-                            // onClick={()=>Store.handleDelete(items)}
-                            onClick={()=>Store.setInput(items)}
-
+                            onClick={()=>StorePub.setInput(items)}
                         >
                             删除
                         </button>

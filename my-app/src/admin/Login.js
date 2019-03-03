@@ -1,11 +1,11 @@
 import React,{Component} from 'react'
 import {inject, observer} from "mobx-react/index";
 
-@inject('Store')
+@inject('StoreLogin')
 @observer
 class Login extends Component{
     render(){
-        const {Store} = this.props;
+        const {StoreLogin} = this.props;
         return (
             <div className="page">
                 <div className={"body_container"}>
@@ -30,8 +30,8 @@ class Login extends Component{
                                     required="required"
                                     type="text"
                                     placeholder="账号"
-                                    name="name"
-                                    onChange={(e)=>{Store.loginInputBoxInput("inputName",e.target.value)}}
+                                    name="inputName"
+                                    onChange={(e)=>{StoreLogin.loginInputBoxInput("inputName",e.target.value)}}
                                 />
                             </div>
                             <div className="input_item">
@@ -42,20 +42,20 @@ class Login extends Component{
                                     type="password"
                                     required="required"
                                     placeholder="密码"
-                                    name="password"
-                                    onChange={(e)=>{Store.loginInputBoxInput("inputPassword",e.target.value)}}
+                                    name="inputPassword"
+                                    onChange={(e)=>{StoreLogin.loginInputBoxInput("inputPassword",e.target.value)}}
                                 />
                             </div>
                             <div
                                 className="input_item radio"
-                                onChange={(e)=>{Store.loginInputBoxInput("power_id",e.target.value)}}
+                                onChange={(e)=>{StoreLogin.loginInputBoxInput("power_id",e.target.value)}}
                             >
                                 <div className="radio_item">
                                     <label>
                                         <input
                                             required="required"
                                             value="管理员"
-                                            name="login_type"
+                                            name="power_id"
                                             type="radio"
                                             defaultChecked
                                         />
@@ -69,7 +69,7 @@ class Login extends Component{
                                         <input
                                             required="required"
                                             value="超级管理员"
-                                            name="login_type"
+                                            name="power_id"
                                             type="radio"
                                         />
                                         <span>
@@ -83,7 +83,7 @@ class Login extends Component{
                                     id="my_submit"
                                     type="button"
                                     className="button login_in"
-                                    onClick={()=>{Store.handleLogin()}}
+                                    onClick={()=>{StoreLogin.handleLogin()}}
                                 >
                                     登录
                                 </button>
