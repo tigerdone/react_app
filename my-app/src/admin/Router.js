@@ -14,7 +14,7 @@ class index extends Component{
             <Router history={hashHistory}>
                 <Route path='/' component={Login}/>
                 <Route path='/login' component={Login}/>
-                <Route path='/home' component={Home} onEnter={StoreLogin.isAdmin}/>
+                <Route path='/home' component={Home} onEnter={(nexState,replace,cb)=>StoreLogin.isAdmin(nexState,replace,cb)}/>
             </Router>
         )
     }

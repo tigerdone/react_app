@@ -3,11 +3,10 @@ import Project from "./Element/Project";
 import Publications from "./Element/Publications";
 import {observer,inject} from 'mobx-react';
 
-@inject('StorePub')
+@inject('StoreLogin')
 @observer
 class Home extends Component{
     render(){
-        const {StorePub} = this.props;
         const {StoreLogin} = this.props;
         return (
             <Fragment>
@@ -22,7 +21,7 @@ class Home extends Component{
                         name=""
                         type="button"
                         className="btn btn-success edit_id"
-                        onClick={()=>{StorePub.handleLoginOut();StoreLogin.loginOut()}}
+                        onClick={()=>{StoreLogin.handleLoginOut()}}
                     >
                         注销
                     </button>

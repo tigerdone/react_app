@@ -36,27 +36,36 @@ class StoreLogin {
                 alert("密码错误ssdf")
             });
     };
-    isAdmin = (nextState, replaceState) =>{
-        this.sleep(10);
-        if (this.logined){
-            // replaceState({ pathname: '/login' });
-        }
-        else{
-            console.log("跳转");
-            replaceState({ pathname: '/login' });
-        }
-    };
-    sleep = (delay)=> {
-        var start = (new Date()).getTime();
-        while ((new Date()).getTime() - start < delay) {
-
-        }
+    isAdmin = (nextState, replaceState,cd) =>{
+        axios.get('/admin/checkLogin')
+            .then((res)=>{
+                console.log(res.data.isLogined);
+                if (!res.data.isLogined){
+                    replaceState({ pathname: '/login' });
+                    cd();
+                }
+                else{
+                    cd();
+                }
+            })
     };
 
-    @action
-    loginOut= ()=>{
-        this.logined = false;
-    }
+    // replaceState({ pathname: '/login' });
+    handleLoginOut=()=>{
+        axios.get('/admin/LoginOut')
+            .then((res)=>{
+                if (res.status === 200){
+                    alert("注销成功");
+                    window.location.hash = "#/";
+                }
+                else {
+                    console.log("error")
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
 }
 export default new StoreLogin();
 

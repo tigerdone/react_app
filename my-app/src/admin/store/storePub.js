@@ -108,21 +108,7 @@ class StorePub {
             });
         this.reLode()
     };
-    handleLoginOut=()=>{
-        axios.get('/admin/LoginOut')
-            .then((res)=>{
-                if (res.status === 200){
-                    alert("注销成功");
-                    window.location.hash = "#/"
-                }
-                else {
-                    console.log("error")
-                }
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-    };
+
     reLode=()=>{
         let e = "paper";
         if(this.Paper.length !== 0){
